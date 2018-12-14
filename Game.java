@@ -1,11 +1,10 @@
 /*
  * OOP - WS1819 - SBL 1
- * Vorname Nachname (Matrikelnr.)
+
  * Vorname Nachname (Matrikelnr.)
  */
 package adventure.game;
 import adventure.location.*;
-import adventure.game.Player;
 import java.util.Scanner;
 
 public class Game {
@@ -38,15 +37,15 @@ public class Game {
 
 
         //initialize player and describe situation
-        Player p1=new Player(rollerCoaster);
+        Player player1=new Player(rollerCoaster);
         System.out.println("You're in a theme park, it's getting dark.\nYou want to go to your car.\nOn the way there" +
-                "you want to have as much fun as possible.\nBut you have only limited energy and money left.");
+                " you want to have as much fun as possible.\nBut you have only limited energy and money left.");
 
         //game round
         //do until Parking Lot is reached
-        while (!p1.getCurrentLocation().getName().equals("Parking Lot")){
+        while (!player1.getCurrentLocation().getName().equals("Parking Lot")){
             //current state of player
-            System.out.println(p1.toString());
+            System.out.println(player1.toString());
             //take command
             String command="";
             //until valid entry
@@ -57,26 +56,27 @@ public class Game {
             }
             //use location or walk direction
             if (command.equals("ride") || command.equals("rest")) {
-                p1.stay();
+                player1.stay();
             } else if (command.equals("up") || command.equals("down") || command.equals("left") || command.equals("right")) {
-                p1.walk(command);
-            }
-
-
-            //Check if energy<0 => lost
-            if(p1.getEnergy()<0){
-                System.out.println("Game over. You collapse exhausted and the park inspector must carry you out of the park.\n" +
-                        "You lose all your fun points! You have "+p1.getMoney()+" \u20ac.");
-                p1.gameOver(parkingLot);
+                player1.walk(command);
             }
 
             //Check if Parking Lot was reached
-            if(p1.getCurrentLocation().getName().equals("Parking Lot")){
+            if(player1.getCurrentLocation().getName().equals("Parking Lot")){
                 System.out.println("You are here now: Parking lot\nCongratulations, you made it. You have collected" +
-                        " "+p1.getFunPoints()+" fun points and have "+p1.getMoney()+" \u20ac.");
+                        " "+player1.getFunPoints()+" fun points and have "+player1.getMoney()+" \u20ac.");
+            }
+
+            //Check if energy<0 => lost
+            if(player1.getEnergy()<0){
+                System.out.println("Game over. You collapse exhausted and the park inspector must carry you out of the park.\n" +
+                        "You lose all your fun points! You have "+player1.getMoney()+" \u20ac.");
+                player1.gameOver(parkingLot);
             }
 
         }
+        //close Scanner
+        input.close();
 
 
     }

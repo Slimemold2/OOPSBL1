@@ -13,17 +13,15 @@ public class Player{
     private int funPoints;
 
     //Constructor, currentLocation is given as parameter;
-    //enery is randomly set between 60 and 200;
+    //energy is randomly set between 60 and 200;
     //money is randomly set between 0.00 and 50.00;
     public Player(Location startLocation){
         this.currentLocation=startLocation;
         this.energy=randomGenerator.nextInt(141)+60;
-        int euro=randomGenerator.nextInt(51);
-        int cent=randomGenerator.nextInt(100);
-        if(euro!=50){
-            this.money=euro+(cent/100);
-        }
-        else{this.money=euro;}
+        int cent=randomGenerator.nextInt(5001);
+        //change type of cent to double so that division by 100 is possible
+        double euro=cent;
+        this.money=euro/100;
     }
 
     //Getter methods
@@ -38,22 +36,25 @@ public class Player{
 
     //Returns string with all important current information like location, energy and money left and fun points earned.
     public String toString(){
-        String str=this.currentLocation.getName()+"\nYou have "+this.getEnergy()+" Energy and "+this.getMoney()+" \u20ac." +
+
+        String str=this.currentLocation.toString()+"\nYou have "+this.getEnergy()+" Energy and "+this.getMoney()+" \u20ac." +
                 " You already earned "+getFunPoints()+" fun points.";
         return str;
     }
 
     //Lets the player walk in the wished direction, effectively changing the current location and reducing
     //the energy points by 10.
-    //! NOT catching invalid input bc of task description...
     public void walk(String direction){
-        this.currentLocation=this.currentLocation.getNeighboringLocation(direction);
-        this.energy=this.energy-10;
+        //if a location in the wished location exists go there;
+        if(this.currentLocation.getNeighboringLocation(direction)!=null) {
+            this.currentLocation = this.currentLocation.getNeighboringLocation(direction);
+            this.energy = this.energy - 10;
+        }
+        else{System.out.println("Can't go there! Choose other direction.");}
     }
 
     //Uses the current location, either takes a ride if location is FunRide or rests if location is Facility;
     //Only if enough money is available;
-    //Usage of subclasses is necessary!
     public void stay(){
         //check whether current location is FunRide or Facility
         if(this.currentLocation.getClass().toString().equals("class adventure.location.FunRide")) {

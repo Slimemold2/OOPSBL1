@@ -20,7 +20,7 @@ public class FunRide extends Location{
 
     //Returns string of location with additionally cost and fun points to be earned per ride
     public String toString(){
-        String str=super.toString()+" or ride\nA ride cost "+this.COST+" \u20ac and you will receive "+this.FUN_POINTS+" fun points";
+        String str=super.toString()+"or ride\nA ride cost "+this.COST+" \u20ac and you will receive "+this.FUN_POINTS+" fun points";
         return str;
     }
 }

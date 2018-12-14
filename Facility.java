@@ -20,7 +20,7 @@ public class Facility extends Location{
 
     //Returns string of location with additionally cost and energy points to be earned per use
     public String toString(){
-        String str=super.toString()+" or rest\nA rest cost "+this.COST+" \u20ac and you will receive "+this.ENERGY_POINTS+" energy points";
+        String str=super.toString()+"or rest\nA rest cost "+this.COST+" \u20ac and you will receive "+this.ENERGY_POINTS+" energy points";
         return str;
     }
 }
